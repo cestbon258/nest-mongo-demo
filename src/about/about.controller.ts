@@ -3,6 +3,7 @@ import { AboutService } from './about.service';
 // import { UsersEmails } from '../config';
 import { ApiQuery } from '@nestjs/swagger';
 import { CreateAboutDTO } from './dto/about.dto';
+
 @Controller('about')
 export class AboutController {
     constructor(private readonly AboutService: AboutService) {}
@@ -17,13 +18,13 @@ export class AboutController {
     }
 
     @Get('all')
-        async findAll(@Res() res) {
+    async findAll(@Res() res) {
         const lists = await this.AboutService.findAll();
         return res.status(HttpStatus.OK).json(lists);
     }
 
     @Get('id')
-        async findById(@Res() res, @Query('id') id: string) {
+    async findById(@Res() res, @Query('id') id: string) {
         const lists = await this.AboutService.findById(id);
         if (!lists) throw new NotFoundException('Id does not exist!');
         return res.status(HttpStatus.OK).json(lists);
